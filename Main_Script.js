@@ -1,19 +1,17 @@
-const canvas = document.getElementById('threejsCanvas');
+//Scene, Canvas, Renderer, light and Camera
 const scene = new THREE.Scene();
-
-// Setting up camera
+const canvas = document.getElementById('threejsCanvas');
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.z = 5;
-
-// Renderer
 const renderer = new THREE.WebGLRenderer({ canvas });
+//////////////////////////////
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
-
-//Lights
+/////////////////////////////
 const light = new THREE.PointLight(0xffffff, 1);
-light.position.set(-10, -10, -5);
-scene.add(light);
+
+// Positioning the main two things:
+light.position.set(-10, -10, -5); scene.add(light);
+camera.position.z = 5;
 
 //First Sphere
 const geometry_1 = new THREE.SphereGeometry(1, 32, 32);
@@ -29,7 +27,7 @@ const material_2 = new THREE.MeshStandardMaterial({ color: 0xff4500 });
 const sphere_2 = new THREE.Mesh(geometry_2, material_2);
 
 sphere_2.position.set(0, 0, 1);
-scene.add(sphere_2);
+// scene.add(sphere_2);
 
 //Third Sphere
 const geometry_3 = new THREE.SphereGeometry(1.7, 32, 32);
@@ -43,12 +41,18 @@ scene.add(sphere_3);
 ////////Adding the Lens//////////
 const loader = new THREE.GLTFLoader();
 loader.load(
-   'E\\Uni-Muenster\\GIS\\Models\\Magnifying_glass.glb',
+   'Models/Magnifying_glass.glb',
    (gltf) => {
       const lens = gltf.scene;
       lens.scale.set(1, 1, 1);
       lens.position.set(0, 0, 3);
       scene.add(lens);
+   },
+   (xhr) => {
+      console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+   },
+   (error) => {
+      console.error('An error occurred:', error);
    }
 );
 /////////////////////////////////
