@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>SportsSpotter</title>
+   <!-- <link rel="stylesheet" href="static/tatStyles.css"> -->
+   <link rel="stylesheet" href="{{ url_for('static', filename='Styles.css') }}">
+
+</head>
+
+<body>
+   <header>
+      <h1>SportsSpotter</h1>
+      <input type="text" placeholder="Search your sport...">
+   </header>
+
+   <div id="background">
+      <canvas id="threejsCanvas"></canvas>
+   </div>
+   <!--------------------- + Sign Button ---------------------------->
+   <div class="popup-trigger" onclick="openPopup()">+</div>
+   <!-- Popup Content -->
+   <div id="popup" class="popup">
+      <div class="popup-content">
+         <span class="close" onclick="closePopup()">&times;</span>
+         <h2>Sign Up / Login</h2>
+
+         <!-- Toggle between Sign Up and Login forms -->
+         <div class="tabs">
+            <button class="tab-button" onclick="showForm('login')">Login</button>
+            <button class="tab-button" onclick="showForm('signup')">Sign Up</button>
+         </div>
+
+         <!-- Login Form -->
+         <div id="login-form" class="form" style="display: none;">
+            <h3>Login</h3>
+            <form action="/login" method="POST">
+               <input type="text" name="login-username" id="login-username" placeholder="Username" required><br>
+               <input type="password" name="login-password" id="login-password" placeholder="Password" required><br>
+               <button type="submit">Login</button>
+            </form>
+            <p> OR </p>
+            <a href="/login/google">
+               <button type="submit">Login with Google</button>
+            </a>
+         </div>
+
+         <!-- Sign Up Form -->
+         <div id="signup-form" class="form" style="display: none;">
+            <h3>Sign Up</h3>
+            <form action="/signup" method="POST">
+               <input type="text" name="signup-username" id="signup-username" placeholder="Username" required><br>
+               <input type="email" name="signup-email" id="signup-email" placeholder="Email" required><br>
+               <input type="password" name="signup-password" id="signup-password" placeholder="Password" required><br>
+               <button type="submit">Sign Up</button>
+            </form>
+            <p> OR </p>
+            <a href="/login/google">
+               <button type="submit">Login with Google</button>
+            </a>
+         </div>
+      </div>
+   </div>
+   <!--------------------------------------------------------------->
+
+   <footer>
+      <p>Powered by IFGI</p>
+   </footer>
+
+   <!-- Script here -->
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+   <!-- <script src="static/Main_Script.js"></script> -->
+   <script src="{{ url_for('static', filename='Main_Script.js') }}" defer></script>
+</body>
+
+</html>

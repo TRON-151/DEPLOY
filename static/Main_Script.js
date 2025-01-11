@@ -38,25 +38,6 @@ sphere_3.position.set(0, 0, -1.5);
 scene.add(sphere_3);
 
 
-////////Adding the Lens//////////
-const loader = new THREE.GLTFLoader();
-loader.load(
-   'Models/Magnifying_glass.glb',
-   (gltf) => {
-      const lens = gltf.scene;
-      lens.scale.set(1, 1, 1);
-      lens.position.set(0, 0, 3);
-      scene.add(lens);
-   },
-   (xhr) => {
-      console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-   },
-   (error) => {
-      console.error('An error occurred:', error);
-   }
-);
-/////////////////////////////////
-
 function animate() {
    requestAnimationFrame(animate);
 
@@ -73,3 +54,56 @@ window.addEventListener('resize', () => {
    camera.updateProjectionMatrix();
    renderer.setSize(window.innerWidth, window.innerHeight);
 });
+
+/////////////////////Login Details///////////////////////////////////
+function openPopup() {
+   document.getElementById('popup').style.display = 'flex';
+}
+
+function closePopup() {
+   document.getElementById('popup').style.display = 'none';
+}
+
+function showForm(formType) {
+   document.getElementById('login-form').style.display = 'none';
+   document.getElementById('signup-form').style.display = 'none';
+
+   if (formType === 'login') {
+      document.getElementById('login-form').style.display = 'block';
+   } else if (formType === 'signup') {
+      document.getElementById('signup-form').style.display = 'block';
+   }
+}
+
+function login() {
+   alert('Logging in with username: ' + document.getElementById('login-username').value);
+   closePopup();
+}
+
+function signup() {
+   alert('Signing up with username: ' + document.getElementById('signup-username').value);
+   closePopup();
+}
+
+//////////////////////////Signup backend////////////////////////////////
+async function signup() {
+   const username = document.getElementById('signup-username').value;
+   const email = document.getElementById('signup-email').value;
+   const password = document.getElementById('signup-password').value;
+
+   try {
+      const response = await fetch('http://localhost:3000/signup', {
+         method: 'POST',
+         headers: {
+            'Content-Type': 'application/json',
+         },
+         body: JSON.stringify({ username, email, password }),
+      });
+
+      const result = await response.json();
+      alert(result.message);
+   } catch (error) {
+      console.error('Error:', error);
+   }
+}
+//////////////////////////////////////////////////////////////////////
