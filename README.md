@@ -1,2 +1,1 @@
-# SportSpotter
-A initial page for the website contain dynamic interactions in three dimension space.
+##This is the first deployment prototype of the backend on a server using Render.
